@@ -11,7 +11,7 @@ export default [
 		input: "src/main.ts",
 		output: {
 			name: "ew",
-			file: process.env.NODE_ENV === "production" ? "dist/iife/everyday-webcomponents.min.js" : pkg.browser,
+			file: process.env.NODE_ENV !== "production" ? "dist/everyday-webcomponents.js" : pkg.browser,
 			format: "iife",
 			esModule: false
 		},

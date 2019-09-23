@@ -1,9 +1,18 @@
 {
   "name": "everyday-webcomponents",
   "version": "0.0.1",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "browser": "dist/iife/everyday-webcomponents.js",
+  "description": "A collection of web components",
+  "main": "dist/index.node.js",
+  "module": "dist/index.js",
+  "browser": "dist/everyday-webcomponents.min.js",
+  "unpkg": "dist/everyday-webcomponents.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sheeshpaul/everyday-webcomponents.git"
+  },
+  "author": "Sheeshpaul Kamboj <sheeshpaul@hotmail.com>",
+  "license": "MIT",
+  "sideEffects": false,
   "dependencies": {
     "ms": "^2.1.2"
   },
@@ -19,7 +28,7 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "prepare": "rollup -c",
+    "prepare": "rollup -c --environment NODE_ENV:production",
     "build": "rollup -c",
     "build-prod": "rollup -c --environment NODE_ENV:production",
     "watch": "rollup -c -w"
