@@ -61,7 +61,7 @@ const styles = `
 export let templateStyleSheet: HTMLTemplateElement;
 export let adoptedStyleSheet: CSSStyleSheet;
 
-if ("adoptedStyleSheets" in Document.prototype && "replaceSync" in CSSStyleSheet.prototype) {
+if ("adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype) {
     adoptedStyleSheet = new CSSStyleSheet();
     adoptedStyleSheet.replace(styles);
 } else {

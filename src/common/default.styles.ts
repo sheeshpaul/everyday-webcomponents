@@ -33,7 +33,7 @@ const styles = `
 export let adoptedDefaultStyleSheet: CSSStyleSheet;
 export let templateDefaultStyleSheet: HTMLTemplateElement;
 
-if ("adoptedStyleSheets" in Document.prototype && "replaceSync" in CSSStyleSheet.prototype) {
+if ("adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype) {
     adoptedDefaultStyleSheet = new CSSStyleSheet();
     adoptedDefaultStyleSheet.replace(styles);
 } else {
