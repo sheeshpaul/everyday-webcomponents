@@ -14,10 +14,8 @@
   "license": "MIT",
   "sideEffects": false,
   "dependencies": {
-    "ms": "^2.1.2"
   },
   "devDependencies": {
-    "@types/ms": "^0.7.31",
     "rollup": "^1.21.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",

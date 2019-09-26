@@ -1,6 +1,6 @@
 const styles = `
     :host {
-        --fontSize: 20px;
+        --ew-font-size: 20px;
     }
 
     .card {
@@ -12,8 +12,8 @@ const styles = `
         box-shadow: 0px 1.6px 3.6px rgba(0,0,0,0.13), 0px 0.3px 0.9px rgba(0,0,0,0.11);
         width: 300px;
         height: 350px;
-        background: var(--background);
-        color: var(--color);
+        background: var(--ew-background);
+        color: var(--ew-color);
     }
     .card--small {
         grid-template-areas: "text";
@@ -42,8 +42,8 @@ const styles = `
         padding: 8px 16px;
     }
     .card-text p {
-        font-size: var(--fontSize);
-        line-height: calc(var(--fontSize) + 8px);
+        font-size: var(--ew-font-size);
+        line-height: calc(var(--ew-font-size) + 8px);
         max-height: 160px;
         overflow: hidden;
     }

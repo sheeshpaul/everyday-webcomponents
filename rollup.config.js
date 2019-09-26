@@ -6,7 +6,7 @@ import typescript from "rollup-plugin-typescript";
 import uglify from "rollup-plugin-uglify-es";
 
 export default [
-	// browser-friendly iife build
+	// Browser-friendly iife build
 	{
 		input: "src/main.ts",
 		output: {
@@ -16,9 +16,9 @@ export default [
 			esModule: false
 		},
 		plugins: [
-			resolve(),   // so Rollup can find `ms`
-			commonjs(),  // so Rollup can convert `ms` to an ES module
-			typescript(), // so Rollup can convert TypeScript to JavaScript
+			resolve(),    // Locate modules using the Node resolution algorithm, for using third party modules in node_modules
+			commonjs(),   // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
+			typescript(), // Convert TypeScript to JavaScript
 			replace({
 				exclude: "node_modules/**", ENV: JSON.stringify(process.env.NODE_ENV || "development"),
 			}),
@@ -26,17 +26,11 @@ export default [
 		]
 	},
 
-	// CommonJS (for Node) and ES module (for bundlers) build.
-	// (We could have three entries in the configuration array
-	// instead of two, but it's quicker to generate multiple
-	// builds from a single configuration where possible, using
-	// an array for the `output` option, where we can specify
-	// `file` and `format` for each target)
+	// CommonJS (for Node) and ES module (for bundlers) build
 	{
 		input: "src/main.ts",
-		external: ["ms"],
 		plugins: [
-			typescript() // so Rollup can convert TypeScript to JavaScript
+			typescript() // Convert TypeScript to JavaScript
 		],
 		output: [
 			{ file: pkg.main, format: "cjs" },

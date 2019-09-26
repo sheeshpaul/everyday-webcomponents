@@ -1,9 +1,9 @@
 const styles = `
     :host {
-        --background: #fff;
-        --color: #000;
-        --fontFamily: Georgia;
-        --fontSize: 16px;
+        --ew-background: #fff;
+        --ew-color: #000;
+        --ew-font-family: Georgia;
+        --ew-font-size: 16px;
         all: initial; /* 1st rule so subsequent properties are reset. */
         display: block; /* By default, custom elements are display: inline */
     }
@@ -19,8 +19,8 @@ const styles = `
         margin-bottom: 0;
     }
     .default {
-        font-family: var(--fontFamily);
-        font-size: var(--fontSize);
+        font-family: var(--ew-font-family);
+        font-size: var(--ew-font-size);
         font-weight: 400;
         line-height: normal;
     }
