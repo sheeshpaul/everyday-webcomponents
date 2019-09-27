@@ -99,7 +99,6 @@ customElements.define("ew-card", class extends HTMLElement {
 
     /** An instance of the element is created or upgraded. */
     public constructor() {
-        console.log(`ew-card.constructor:`);
         super();
 
         this.fallbackImage = "data:image/gif;base64,R0lGODlhAQABAIAAAMzMzAAAACH5BAAAAP8ALAAAAAABAAEAAAICRAEAOw==";
@@ -119,8 +118,6 @@ customElements.define("ew-card", class extends HTMLElement {
 
     /** Render the component. */
     public connectedCallback(): void {
-        console.log(`ew-card.connectedCallback:`);
-
         this.cardElement = this.root.querySelector(".card") as HTMLDivElement;
         this.imageElement = this.root.querySelector(".card-image") as HTMLImageElement;
         this.textElement = this.root.querySelector(".card-text p") as HTMLParagraphElement;
@@ -139,8 +136,6 @@ customElements.define("ew-card", class extends HTMLElement {
      * @param newVal - The new attribute value
      */
     public attributeChangedCallback(attrName: string, oldVal: string, newVal: string): void {
-        console.log(`ew-card.attributeChangedCallback: attrName:${attrName} oldVal:${oldVal} newVal:${newVal}`);
-
         if (!this.isConnected) {
             return;
         }
