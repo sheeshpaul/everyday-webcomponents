@@ -1,5 +1,5 @@
 # everyday-webcomponents
-everyday-webcomponents is a collection of commonly used Web UIs as Native Web Components.
+everyday-webcomponents is a collection of commonly used Web UIs as Native Web Components. The everyday-components are very light weight, written using vanilla web component APIs and does not use any framework.
 
 ## Usage
 There are three different ways to use this package.
