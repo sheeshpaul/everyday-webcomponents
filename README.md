@@ -65,4 +65,6 @@ The card component exposes CSS variables, which can be used to theme the card.
 - **--ew-font-family**: Set this CSS variable to change the font family.
 - **--ew-font-size**: Set this CSS variable to change the font size.
 
-This [codepen](https://codepen.io/sheeshpaul/pen/jONddNN) demonstrates the various ways to use and theme the card component.
+This [codepen](https://codepen.io/sheeshpaul/pen/jONddNN) demonstrates **HTML declarative approach** to use and theme the card component.
+
+This [codepen](https://codepen.io/sheeshpaul/pen/qBWGXzO) demonstrates **JavaScript approach** to use and theme the card component.
