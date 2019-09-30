@@ -32,6 +32,7 @@ const styles = `
         grid-area: image;
         width: 100%;
         height: 100%;
+        object-fit: cover;
     }
     .card--small .card-image {
         display: none;
