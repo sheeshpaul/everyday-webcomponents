@@ -8,7 +8,7 @@ There are three different ways to use this package.
 The package bundle is available over the CDN. Include the following script. The script tag can be added in the head or end of the body tag.
 
 ```html
-<script src='https://unpkg.com/everyday-webcomponents@0.0.1/dist/everyday-webcomponents.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents@0.0.2/dist/everyday-webcomponents.min.js'></script>
 ```
 
 ### In the Bundler as ES6 Module
