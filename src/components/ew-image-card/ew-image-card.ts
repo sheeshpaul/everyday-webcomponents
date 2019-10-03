@@ -1,7 +1,7 @@
 import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from "./../../common";
-import { adoptedStyleSheet, templateStyleSheet } from "./ew-card.styles";
+import { adoptedStyleSheet, templateStyleSheet } from "./ew-image-card.styles";
 
-import { template } from "./ew-card.template";
+import { template } from "./ew-image-card.template";
 
 /** The supported attributes. */
 enum Attributes {
@@ -11,8 +11,10 @@ enum Attributes {
     link = "link"
 }
 
-customElements.define("ew-card", class extends HTMLElement {
+/** The name for hidden class utility. */
+const hiddenClass = "u-hidden";
 
+customElements.define("ew-image-card", class extends HTMLElement {
     /** The shadow root. */
     private root: ShadowRoot;
 
@@ -21,6 +23,9 @@ customElements.define("ew-card", class extends HTMLElement {
 
     /** The image element. */
     private imageElement!: HTMLImageElement;
+
+    /** The text div element. */
+    private textBoxElement!: HTMLDivElement;
 
     /** The text element. */
     private textElement!: HTMLParagraphElement;
@@ -120,6 +125,7 @@ customElements.define("ew-card", class extends HTMLElement {
     public connectedCallback(): void {
         this.cardElement = this.root.querySelector(".card") as HTMLDivElement;
         this.imageElement = this.root.querySelector(".card-image") as HTMLImageElement;
+        this.textBoxElement = this.root.querySelector(".card-text") as HTMLDivElement;
         this.textElement = this.root.querySelector(".card-text p") as HTMLParagraphElement;
         this.linkElement = this.root.querySelector(".card-link") as HTMLAnchorElement;
 
@@ -173,12 +179,12 @@ customElements.define("ew-card", class extends HTMLElement {
         }
 
         let imageWidth = 300;
-        let imageHeight = 174;
+        let imageHeight = 250;
 
         let type = this.type;
-        if (type === "compact") {
-            imageWidth = 140;
-            imageHeight = 84;
+        if (type === "large") {
+            imageWidth = 624;
+            imageHeight = 350;
         }
 
         this.imageElement.width = imageWidth;
@@ -192,6 +198,8 @@ customElements.define("ew-card", class extends HTMLElement {
         if (text) {
             this.textElement.innerText = text;
         }
+
+        this.toggleTextBoxVisibility();
     }
 
     /** Set link element's href attribute. */
@@ -237,6 +245,7 @@ customElements.define("ew-card", class extends HTMLElement {
      */
     private updateText(oldVal: string, newVal: string): void {
         this.textElement.innerText = newVal;
+        this.toggleTextBoxVisibility();
     }
 
     /**
@@ -249,6 +258,15 @@ customElements.define("ew-card", class extends HTMLElement {
             this.linkElement.href = newVal;
         } else {
             this.linkElement.removeAttribute("href");
+        }
+    }
+
+    /** Toggles text div visibility based on content in paragraph. */
+    private toggleTextBoxVisibility(): void {
+        if (this.textElement.innerText.length) {
+            this.textBoxElement.classList.remove(hiddenClass);
+        } else {
+            this.textBoxElement.classList.add(hiddenClass);
         }
     }
 });
