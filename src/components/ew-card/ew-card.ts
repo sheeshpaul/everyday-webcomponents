@@ -13,9 +13,6 @@ enum Attributes {
 
 customElements.define("ew-card", class extends HTMLElement {
 
-    /** The shadow root. */
-    private root: ShadowRoot;
-
     /** The card element. */
     private cardElement!: HTMLDivElement;;
 
@@ -103,25 +100,25 @@ customElements.define("ew-card", class extends HTMLElement {
 
         this.fallbackImage = "data:image/gif;base64,R0lGODlhAQABAIAAAMzMzAAAACH5BAAAAP8ALAAAAAABAAEAAAICRAEAOw==";
 
-        this.root = this.attachShadow({ mode: "open" });
-        this.root.appendChild(template.content.cloneNode(true));
+        this.attachShadow({ mode: "open" });
+        this.shadowRoot!.appendChild(template.content.cloneNode(true));
 
         // Use constructable stylesheet when the feature is present.
         // This ensures single instance of stylesheet is used across all the instances of this component.
         if (adoptedStyleSheet) {
-            this.root.adoptedStyleSheets = [adoptedDefaultStyleSheet, adoptedStyleSheet];
+            this.shadowRoot!.adoptedStyleSheets = [adoptedDefaultStyleSheet, adoptedStyleSheet];
         } else {
-            this.root.appendChild(templateDefaultStyleSheet.content.cloneNode(true));
-            this.root.appendChild(templateStyleSheet.content.cloneNode(true));
+            this.shadowRoot!.appendChild(templateDefaultStyleSheet.content.cloneNode(true));
+            this.shadowRoot!.appendChild(templateStyleSheet.content.cloneNode(true));
         }
     }
 
     /** Render the component. */
     public connectedCallback(): void {
-        this.cardElement = this.root.querySelector(".card") as HTMLDivElement;
-        this.imageElement = this.root.querySelector(".card-image") as HTMLImageElement;
-        this.textElement = this.root.querySelector(".card-text p") as HTMLParagraphElement;
-        this.linkElement = this.root.querySelector(".card-link") as HTMLAnchorElement;
+        this.cardElement = this.shadowRoot!.querySelector(".card") as HTMLDivElement;
+        this.imageElement = this.shadowRoot!.querySelector(".card-image") as HTMLImageElement;
+        this.textElement = this.shadowRoot!.querySelector(".card-text p") as HTMLParagraphElement;
+        this.linkElement = this.shadowRoot!.querySelector(".card-link") as HTMLAnchorElement;
 
         this.setType();
         this.setImage();

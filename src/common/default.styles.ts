@@ -26,7 +26,7 @@ const styles = `
     }
     .u-outline,
     .u-outline * {
-        outline: 1px solid black;
+        outline: 1px solid red;
     }
 `;
 
