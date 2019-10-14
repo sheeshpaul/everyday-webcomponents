@@ -10,10 +10,26 @@ const styles = `
         width: 620px;
         height: 350px;
         background: var(--ew-background);
+        position: relative;
+        overflow: hidden;
     }
 
     .carousel-container {
         display: flow-root;
+        height: 100%;
+        transition: transform 250ms;
+        will-change: transform;
+    }
+
+    .carousel-prev,
+    .carousel-next {
+        position: absolute;
+        top: 160px;
+        z-index: 2;
+    }
+
+    .carousel-next {
+        right: 0;
     }
 `;
 
