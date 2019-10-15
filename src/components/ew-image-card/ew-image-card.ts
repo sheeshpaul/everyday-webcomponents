@@ -5,7 +5,7 @@ import { template } from "./ew-image-card.template";
 
 /** The supported attributes. */
 enum Attributes {
-    type = "type", // Type can have value small, medium, compact
+    type = "type", // Type can have value large
     image = "image",
     text = "text",
     link = "link"
@@ -14,7 +14,7 @@ enum Attributes {
 /** The name for hidden class utility. */
 const hiddenClass = "u-hidden";
 
-customElements.define("ew-image-card", class extends HTMLElement {
+export class ImageCard extends HTMLElement {
     /** The card element. */
     private cardElement!: HTMLDivElement;;
 
@@ -266,4 +266,6 @@ customElements.define("ew-image-card", class extends HTMLElement {
             this.textBoxElement.classList.add(hiddenClass);
         }
     }
-});
+}
+
+customElements.define("ew-image-card", ImageCard);
