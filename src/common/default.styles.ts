@@ -1,9 +1,12 @@
+import { colorGrey1, colorGrey12 } from "./colors";
+import { fontSize3, fontWeightNormal } from "./fonts";
+
 const styles = `
     :host {
-        --ew-background: #fff;
-        --ew-color: #000;
+        --ew-background: ${colorGrey1};
+        --ew-color: ${colorGrey12};
         --ew-font-family: Georgia;
-        --ew-font-size: 16px;
+        --ew-font-size: ${fontSize3};
         all: initial; /* 1st rule so subsequent properties are reset. */
         display: block; /* By default, custom elements are display: inline */
     }
@@ -21,7 +24,7 @@ const styles = `
     .default {
         font-family: var(--ew-font-family);
         font-size: var(--ew-font-size);
-        font-weight: 400;
+        font-weight: ${fontWeightNormal};
         line-height: normal;
     }
     .u-outline,

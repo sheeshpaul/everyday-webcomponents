@@ -1,8 +1,10 @@
+import { colorGrey1, fontSize5 } from "./../../common";
+
 const styles = `
     :host {
         --ew-background: rgba(0, 0, 0, .5);
-        --ew-color: #fff;
-        --ew-font-size: 20px;
+        --ew-color: ${colorGrey1};
+        --ew-font-size: ${fontSize5};
     }
 
     .card {

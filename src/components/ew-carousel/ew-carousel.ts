@@ -8,7 +8,19 @@ enum Attributes {
     type = "type" // Type can have value large
 }
 
+/** The supported slide width. */
+enum SlideWidth {
+    regular = 300,
+    large = 620
+}
+
+/** The name for enabled class. */
+const enabledClass = "enabled";
+
 customElements.define("ew-carousel", class extends HTMLElement {
+    /** The carousel element. */
+    private carousel!: HTMLDivElement;
+
     /** The carousel container element. */
     private container!: HTMLDivElement;
 
@@ -27,7 +39,8 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** The current slide number. */
     private currentSlide = 1;
 
-    private readonly slideWidth = 620;
+    /** The slide width based on carousel type. */
+    private slideWidth = 0;
 
     /** The observed attributes. */
     static get observedAttributes() {
@@ -76,15 +89,18 @@ customElements.define("ew-carousel", class extends HTMLElement {
 
     /** Render the component. */
     public connectedCallback(): void {
-        this.container = this.shadowRoot!.querySelector(".carousel-container") as HTMLDivElement;
-        this.previous = this.shadowRoot!.querySelector(".carousel-prev") as HTMLButtonElement;
-        this.next = this.shadowRoot!.querySelector(".carousel-next") as HTMLButtonElement;
+        this.carousel = this.shadowRoot!.querySelector(".carousel") as HTMLDivElement;
+        this.container = this.shadowRoot!.querySelector(".container") as HTMLDivElement;
+        this.previous = this.shadowRoot!.querySelector(".prev") as HTMLButtonElement;
+        this.next = this.shadowRoot!.querySelector(".next") as HTMLButtonElement;
 
         // shadowRoot can't have event handlers, so using the first child
         this.shadowRoot!.firstElementChild!.addEventListener("slotchange", this.onSlotChange);
 
         this.previous.addEventListener("click", this.onPrevious,  { passive: true });
         this.next.addEventListener("click", this.onNext, { passive: true });
+
+        this.setSlideWidth();
     }
 
     /**
@@ -106,11 +122,23 @@ customElements.define("ew-carousel", class extends HTMLElement {
         }
     }
 
+    /** Set slide width based on carousel type. */
+    private setSlideWidth(): void {
+        this.slideWidth = this.type === "large" ? SlideWidth.large : SlideWidth.regular;
+    }
+
+    /** Set the container width based on type and number of slides. */
+    private setContainerWidth(): void {
+        this.container.style.width = `${this.totalSlides * this.slideWidth}px`;
+    }
+
     /** Set the correct type on slot elements. */
     private setType(): void {
         let type = this.type;
 
         if (type) {
+            this.carousel.classList.add(`carousel--${type}`);
+
             this.slotElements.forEach(element => {
                 element.setAttribute(Attributes.type, type as string);
             });
@@ -121,8 +149,37 @@ customElements.define("ew-carousel", class extends HTMLElement {
         }
     }
 
-    /** Update the type on slot elements. */
+    /** Set the correct enabled state on navigation buttons. */
+    private setNavigationButtons(): void {
+        if (this.currentSlide > 1) {
+            this.previous.classList.add(enabledClass);
+        } else {
+            this.previous.classList.remove(enabledClass);
+        }
+
+        if (this.currentSlide < this.totalSlides) {
+            this.next.classList.add(enabledClass);
+        } else {
+            this.next.classList.remove(enabledClass);
+        }
+    }
+
+    /** Update the carousel and slot elements for type change. */
     private updateType(oldVal: string, newVal: string): void {
+        // Step 1: Apply correct carousel class
+        if (oldVal) {
+            this.carousel.classList.remove(`carousel--${oldVal.toLowerCase()}`);
+        }
+
+        if (newVal) {
+            this.carousel.classList.add(`carousel--${newVal.toLowerCase()}`);
+        }
+
+        // Step 2: Update container width
+        this.setSlideWidth();
+        this.setContainerWidth();
+
+        // Step 3: Update type on slot elements
         this.setType();
     }
 
@@ -136,11 +193,11 @@ customElements.define("ew-carousel", class extends HTMLElement {
 
             this.totalSlides = this.slotElements.length;
 
-            let containerWidth = `${this.totalSlides * this.slideWidth}px`;
-
-            this.container.style.width = containerWidth;
+            this.setContainerWidth();
 
             this.setType();
+
+            this.setNavigationButtons();
         }
     }
 
@@ -149,6 +206,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
         if (this.currentSlide > 1) {
             this.currentSlide--;
             this.slide();
+            this.setNavigationButtons();
         }
     }
 
@@ -157,6 +215,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
         if (this.currentSlide < this.totalSlides) {
             this.currentSlide++;
             this.slide();
+            this.setNavigationButtons();
         }
     }
 
