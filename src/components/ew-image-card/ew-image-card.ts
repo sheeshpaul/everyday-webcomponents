@@ -121,10 +121,10 @@ export class ImageCard extends HTMLElement {
     /** Render the component. */
     public connectedCallback(): void {
         this.cardElement = this.shadowRoot!.querySelector(".card") as HTMLDivElement;
-        this.imageElement = this.shadowRoot!.querySelector(".card-image") as HTMLImageElement;
-        this.textBoxElement = this.shadowRoot!.querySelector(".card-text") as HTMLDivElement;
-        this.textElement = this.shadowRoot!.querySelector(".card-text p") as HTMLParagraphElement;
-        this.linkElement = this.shadowRoot!.querySelector(".card-link") as HTMLAnchorElement;
+        this.imageElement = this.shadowRoot!.querySelector(".image") as HTMLImageElement;
+        this.textBoxElement = this.shadowRoot!.querySelector(".text") as HTMLDivElement;
+        this.textElement = this.shadowRoot!.querySelector(".text p") as HTMLParagraphElement;
+        this.linkElement = this.shadowRoot!.querySelector(".link") as HTMLAnchorElement;
 
         this.setType();
         this.setImage();
@@ -139,7 +139,7 @@ export class ImageCard extends HTMLElement {
      * @param newVal - The new attribute value
      */
     public attributeChangedCallback(attrName: string, oldVal: string, newVal: string): void {
-        if (!this.isConnected) {
+        if (!this.cardElement) {
             return;
         }
 

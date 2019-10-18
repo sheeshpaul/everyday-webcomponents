@@ -28,31 +28,31 @@ const styles = `
         width: 100%;
     }
 
-    .card-image {
+    .image {
         grid-area: image;
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-    .card--small .card-image {
+    .card--small .image {
         display: none;
     }
 
-    .card-text {
+    .text {
         grid-area: text;
         padding: 8px 16px;
     }
-    .card-text p {
+    .text p {
         font-size: var(--ew-font-size);
         line-height: calc(var(--ew-font-size) + 8px);
         max-height: 160px;
         overflow: hidden;
     }
-    .card--compact .card-text p {
+    .card--compact .text p {
         max-height: 68px;
     }
 
-    .card-link {
+    .link {
         grid-column: 1 / span 2;
         grid-row: 1 / span 2;
         z-index: 2;

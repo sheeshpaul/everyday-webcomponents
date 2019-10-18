@@ -22,7 +22,7 @@ const styles = `
         height: 350px;
     }
 
-    .card-image {
+    .image {
         grid-column: 1;
         grid-row: 1 / span 2;
         width: 100%;
@@ -30,23 +30,23 @@ const styles = `
         object-fit: cover;
     }
 
-    .card-text {
+    .text {
         grid-column: 1;
         grid-row: 2;
         padding: 8px 16px 8px 16px;
         background: var(--ew-background);
     }
-    .card-text p {
+    .text p {
         font-size: var(--ew-font-size);
         line-height: calc(var(--ew-font-size) + 8px);
         max-height: 84px;
         overflow: hidden;
     }
-    .card--large .card-text p {
+    .card--large .text p {
         max-height: 58px;
     }
 
-    .card-link {
+    .link {
         grid-column: 1 / span 2;
         grid-row: 1 / span 2;
         z-index: 2;
