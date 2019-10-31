@@ -6,10 +6,6 @@ const styles = `
         --ew-color: ${colorGrey1};
     }
 
-    ::slotted(*) {
-        float: left;
-      }
-
     .carousel {
         width: 300px;
         height: 250px;
@@ -22,16 +18,8 @@ const styles = `
         height: 350px;
     }
 
-    .container {
-        display: flow-root;
-        height: 100%;
-        transition: transform 250ms;
-        will-change: transform;
-    }
-
     .prev,
     .next {
-        display: none;
         position: absolute;
         top: 97px;
         width: 36px;
@@ -49,12 +37,8 @@ const styles = `
         top: 147px;
     }
 
-    .prev.enabled,
-    .next.enabled {
-        display: block;
-    }
-    .prev.enabled:hover,
-    .next.enabled:hover {
+    .prev:not([disabled]):hover,
+    .next:not([disabled]):hover {
         cursor: pointer;
         color: #FFE500;
     }
@@ -69,6 +53,10 @@ const styles = `
     }
     .prev svg {
         left: 0px;
+    }
+
+    .container {
+        will-change: transform;
     }
 `;
 

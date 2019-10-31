@@ -1,4 +1,4 @@
-import { colorGrey1, fontSize5 } from "./../../common";
+import { colorGrey1, fontSize5, size2, size3 } from "./../../common";
 
 const styles = `
     :host {
@@ -33,8 +33,11 @@ const styles = `
     .text {
         grid-column: 1;
         grid-row: 2;
-        padding: 8px 16px 8px 16px;
+        padding: ${size2};
         background: var(--ew-background);
+    }
+    .card--large .text {
+        padding: ${size3};
     }
     .text p {
         font-size: var(--ew-font-size);

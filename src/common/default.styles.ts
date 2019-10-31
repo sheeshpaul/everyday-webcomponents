@@ -1,5 +1,5 @@
-import { colorGrey1, colorGrey12 } from "./colors";
-import { fontSize3, fontWeightNormal } from "./fonts";
+import { colorGrey1, colorGrey12 } from "./color-system";
+import { fontSize3, fontWeightNormal } from "./font-system";
 
 const styles = `
     :host {

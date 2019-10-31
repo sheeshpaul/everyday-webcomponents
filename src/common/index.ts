@@ -1,3 +1,4 @@
 export * from "./default.styles";
-export * from "./colors";
-export * from "./fonts";
+export * from "./color-system";
+export * from "./font-system";
+export * from "./sizing-system";

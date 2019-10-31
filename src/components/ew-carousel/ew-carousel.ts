@@ -3,26 +3,20 @@ import { adoptedStyleSheet, templateStyleSheet } from "./ew-carousel.styles";
 
 import { template } from "./ew-carousel.template";
 
-/** The supported attributes. */
+/** The attributes. */
 enum Attributes {
-    type = "type" // Type can have value large
+    type = "type", // Type can have value large
+    ariaRole = "role",
+    ariaRoleDescription = "aria-roledescription",
+    ariaLabel = "aria-label"
 }
 
-/** The supported slide width. */
-enum SlideWidth {
-    regular = 300,
-    large = 620
-}
-
-/** The name for enabled class. */
-const enabledClass = "enabled";
+/** The name for disabled attribute. */
+const disabledAttribute = "disabled";
 
 customElements.define("ew-carousel", class extends HTMLElement {
     /** The carousel element. */
     private carousel!: HTMLDivElement;
-
-    /** The carousel container element. */
-    private container!: HTMLDivElement;
 
     /** The previous button element. */
     private previous!: HTMLButtonElement;
@@ -30,17 +24,14 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** The next button element. */
     private next!: HTMLButtonElement;
 
-    /** The slot elements. */
-    private slotElements: Element[] = [];
+    /** The slide elements. */
+    private slides: HTMLElement[] = [];
 
     /** The total number of slides. */
     private totalSlides = 0;
 
     /** The current slide number. */
     private currentSlide = 1;
-
-    /** The slide width based on carousel type. */
-    private slideWidth = 0;
 
     /** The observed attributes. */
     static get observedAttributes() {
@@ -90,7 +81,6 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** Render the component. */
     public connectedCallback(): void {
         this.carousel = this.shadowRoot!.querySelector(".carousel") as HTMLDivElement;
-        this.container = this.shadowRoot!.querySelector(".container") as HTMLDivElement;
         this.previous = this.shadowRoot!.querySelector(".prev") as HTMLButtonElement;
         this.next = this.shadowRoot!.querySelector(".next") as HTMLButtonElement;
 
@@ -100,7 +90,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
         this.previous.addEventListener("click", this.onPrevious,  { passive: true });
         this.next.addEventListener("click", this.onNext, { passive: true });
 
-        this.setSlideWidth();
+        this.setNavigationButtons();
     }
 
     /**
@@ -110,7 +100,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
      * @param newVal - The new attribute value
      */
     public attributeChangedCallback(attrName: string, oldVal: string, newVal: string): void {
-        if (!this.isConnected) {
+        if (!this.carousel) {
             return;
         }
 
@@ -122,16 +112,6 @@ customElements.define("ew-carousel", class extends HTMLElement {
         }
     }
 
-    /** Set slide width based on carousel type. */
-    private setSlideWidth(): void {
-        this.slideWidth = this.type === "large" ? SlideWidth.large : SlideWidth.regular;
-    }
-
-    /** Set the container width based on type and number of slides. */
-    private setContainerWidth(): void {
-        this.container.style.width = `${this.totalSlides * this.slideWidth}px`;
-    }
-
     /** Set the correct type on slot elements. */
     private setType(): void {
         let type = this.type;
@@ -139,34 +119,50 @@ customElements.define("ew-carousel", class extends HTMLElement {
         if (type) {
             this.carousel.classList.add(`carousel--${type}`);
 
-            this.slotElements.forEach(element => {
-                element.setAttribute(Attributes.type, type as string);
+            this.slides.forEach(slide => {
+                slide.setAttribute(Attributes.type, type as string);
             });
         } else {
-            this.slotElements.forEach(element => {
-                element.removeAttribute(Attributes.type);
+            this.slides.forEach(slide => {
+                slide.removeAttribute(Attributes.type);
             });
         }
+    }
+
+    /** Set all the needed attributes. */
+    private setAttributes(): void {
+        this.slides.forEach((slide, index) => {
+            slide.setAttribute(Attributes.ariaRole, "group");
+            slide.setAttribute(Attributes.ariaRoleDescription, "slide");
+            slide.setAttribute(Attributes.ariaLabel, `${index + 1} of ${this.totalSlides}`);
+
+            if (index > 0) {
+                slide.style.display = "none";
+            }
+        });
     }
 
     /** Set the correct enabled state on navigation buttons. */
     private setNavigationButtons(): void {
         if (this.currentSlide > 1) {
-            this.previous.classList.add(enabledClass);
+            this.previous.removeAttribute(disabledAttribute);
         } else {
-            this.previous.classList.remove(enabledClass);
+            this.previous.setAttribute(disabledAttribute, "true");
         }
 
         if (this.currentSlide < this.totalSlides) {
-            this.next.classList.add(enabledClass);
+            this.next.removeAttribute(disabledAttribute);
         } else {
-            this.next.classList.remove(enabledClass);
+            this.next.setAttribute(disabledAttribute, "true");
         }
     }
 
-    /** Update the carousel and slot elements for type change. */
+    /**
+     * Update the carousel and slot elements for type change.
+     * @param oldVal - The old value
+     * @param newVal - The new value
+     */
     private updateType(oldVal: string, newVal: string): void {
-        // Step 1: Apply correct carousel class
         if (oldVal) {
             this.carousel.classList.remove(`carousel--${oldVal.toLowerCase()}`);
         }
@@ -175,11 +171,6 @@ customElements.define("ew-carousel", class extends HTMLElement {
             this.carousel.classList.add(`carousel--${newVal.toLowerCase()}`);
         }
 
-        // Step 2: Update container width
-        this.setSlideWidth();
-        this.setContainerWidth();
-
-        // Step 3: Update type on slot elements
         this.setType();
     }
 
@@ -189,13 +180,12 @@ customElements.define("ew-carousel", class extends HTMLElement {
      */
     private onSlotChange(event: Event): void {
         if (event && event.target) {
-            this.slotElements = (event.target as HTMLSlotElement).assignedElements();
-
-            this.totalSlides = this.slotElements.length;
-
-            this.setContainerWidth();
+            this.slides = (event.target as HTMLSlotElement).assignedElements() as HTMLElement[];
+            this.totalSlides = this.slides.length;
 
             this.setType();
+
+            this.setAttributes();
 
             this.setNavigationButtons();
         }
@@ -204,8 +194,12 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** The event handle for previous button click. */
     private onPrevious(): void {
         if (this.currentSlide > 1) {
+            this.hideSlide(this.currentSlide - 1);
+
             this.currentSlide--;
-            this.slide();
+
+            this.showSlide(this.currentSlide - 1);
+
             this.setNavigationButtons();
         }
     }
@@ -213,15 +207,29 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** The event handle for next button click. */
     private onNext(): void {
         if (this.currentSlide < this.totalSlides) {
+            this.hideSlide(this.currentSlide - 1);
+
             this.currentSlide++;
-            this.slide();
+
+            this.showSlide(this.currentSlide - 1);
+
             this.setNavigationButtons();
         }
     }
 
-    /** Moves the container on x-axies. */
-    private slide(): void {
-        let x = (this.currentSlide - 1) * this.slideWidth * -1;
-        this.container.style.transform = `translateX(${x}px)`;
+    /**
+     * Helper function to show slide for given slide index.
+     * @param slideIndex - The slide index
+     */
+    private showSlide(slideIndex: number): void {
+        this.slides[slideIndex].style.display = "block";
+    }
+
+    /**
+     * Helper function to hide slide for given slide index.
+     * @param slideIndex  - The slide index
+     */
+    private hideSlide(slideIndex: number): void {
+        this.slides[slideIndex].style.display = "none";
     }
 });
