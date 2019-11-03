@@ -47,6 +47,13 @@ export default [
 		plugins: plugins
 	},
 
+	// ew-carousel component bundle
+	{
+		input: "src/components/ew-carousel/index.ts",
+		output: { ...output, file: process.env.NODE_ENV === production ? "dist/everyday-ew-carousel-webcomponent.min.js" : "dist/everyday-ew-carousel-webcomponent.js" },
+		plugins: plugins
+	},
+
 	// CommonJS (for Node) and ES module (for bundlers) build
 	{
 		input: "src/main.ts",

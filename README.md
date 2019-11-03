@@ -1,5 +1,15 @@
 # everyday-webcomponents
-everyday-webcomponents is a collection of commonly used Web UIs as Native Web Components. The everyday-components are very light weight, written using vanilla web component APIs and does not use any framework.
+everyday-webcomponents is a collection of commonly used Web UIs as Native Web Components. The everyday-components are very light weight, accessible, written using vanilla web component APIs and does not use any framework.
+
+## Content
+- [Usage](#usage)
+    - [In the Browser](#in-the-browser)
+    - [In the Bundler as ES6 Module](#in-the-bundler-as-es6-module)
+    - [In the Bundler as CommonJS Module](#in-the-bundler-as-commonjs-module)
+- [Components](#components)
+    - [Card Component](#card-component)
+    - [Image Card Component](#image-card-component)
+    - [Carousel Component](#carousel-component)
 
 ## Usage
 There are three different ways to use this package.
@@ -9,15 +19,18 @@ The package comes in two types of bundles, available over the CDN.
 
 For the first type, one single bundle has all the components. Include the following script. The script tag can be added in the head or end of the body tag.
 ```html
-<script src='https://unpkg.com/everyday-webcomponents@0.0.3/dist/everyday-webcomponents.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-webcomponents.min.js'></script>
 ```
 For the second type, each component has it's own bundle. This is usefull when using few components and reduces the bundle download size. Below is the listing of all the bundles. Include the script for the component that you want to use.
 ```html
 // Card component bundle
-<script src='https://unpkg.com/everyday-webcomponents@0.0.3/dist/everyday-ew-card-webcomponent.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-card-webcomponent.min.js'></script>
 
 // Image Card component bundle
-<script src='https://unpkg.com/everyday-webcomponents@0.0.3/dist/everyday-ew-image-card-webcomponent.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-image-card-webcomponent.min.js'></script>
+
+// Carousel component bundle
+<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-carousel-webcomponent.min.js'></script>
 ```
 
 ### In the Bundler as ES6 Module
@@ -49,7 +62,7 @@ require('everyday-webcomponents');
 ## Card Component
 The card component comes in three variations, small, regular, and compact.
 
-![enter image description here](https://shekam.azureedge.net/everyday-webcomponents/image-1.png)
+![Card component image](https://shekam.azureedge.net/everyday-webcomponents/image-1.png)
 
 ### HTML Markup
 ```html
@@ -77,7 +90,7 @@ The card component comes in three variations, small, regular, and compact.
 ## Image Card Component
 The image card component comes in regular and large variations.
 
-![enter image description here](https://shekam.azureedge.net/everyday-webcomponents/image-2.png)
+![Image card component image](https://shekam.azureedge.net/everyday-webcomponents/image-2.png)
 
 ### HTML Markup
 ```html
@@ -100,3 +113,35 @@ The image card component comes in regular and large variations.
 ### Codepen Example
 - [HTML declarative approach](https://codepen.io/sheeshpaul/pen/yLLLaMO)
 - [Javascript approach](https://codepen.io/sheeshpaul/pen/ExxxgWX)
+
+## Carousel Component
+The carousel component comes in regular and large variations.
+
+![Carousel component image](https://shekam.azureedge.net/everyday-webcomponents/image-3.png)
+
+### HTML Markup
+```html
+<ew-carousel>
+    <ew-carousel-slide text="Lorem ipsum dolor sit amet" image="https://source.unsplash.com/620x350/?nature,water" link="https://unsplash.com"></ew-carousel-slide>
+    <ew-carousel-slide text="Lorem ipsum dolor sit amet" image="https://source.unsplash.com/620x350/?cars,audi" link="https://unsplash.com"></ew-carousel-slide>
+    <ew-carousel-slide text="Lorem ipsum dolor sit amet" image="https://source.unsplash.com/620x350/?animal,dog" link="https://unsplash.com"></ew-carousel-slide>
+</ew-carousel>
+```
+
+### Carousel Supported Attributes/Props
+- **type**: By default carousel renders as a regular carousel. Use type **large** to render as a large carousel.
+
+### Carousel Slide Supported Attributes/Props
+- **text**: The text to show in slide.
+- **image**: The image to show in slide.
+- **link**: The link to navigate to when slide is clicked.
+
+### Carousel Slide Supported Themeing Options
+- **--ew-background**: Set this CSS variable to change the background color.
+- **--ew-color**: Set this CSS variable to change the font color.
+- **--ew-font-family**: Set this CSS variable to change the font family.
+- **--ew-font-size**: Set this CSS variable to change the font size.
+
+### Codepen Example
+- [HTML declarative approach](https://codepen.io/sheeshpaul/pen/GRRyvYp)
+- [Javascript approach](https://codepen.io/sheeshpaul/pen/rNNpzqr)

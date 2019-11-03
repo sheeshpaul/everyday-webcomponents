@@ -1,6 +1,6 @@
 {
   "name": "everyday-webcomponents",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A collection of web components",
   "main": "dist/index.node.js",
   "module": "dist/index.js",
