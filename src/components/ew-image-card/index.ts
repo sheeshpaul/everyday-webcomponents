@@ -1,1 +1,1 @@
-export * from "./ew-image-card";
+export * from './ew-image-card';

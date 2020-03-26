@@ -2,36 +2,58 @@
   "name": "everyday-webcomponents",
   "version": "0.0.4",
   "description": "A collection of web components",
-  "main": "dist/index.node.js",
-  "module": "dist/index.js",
-  "browser": "dist/everyday-webcomponents.min.js",
-  "unpkg": "dist/everyday-webcomponents.min.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/sheeshpaul/everyday-webcomponents.git"
   },
+  "keywords": [
+    "webcomponents",
+    "everyday-webcomponents"
+  ],
   "author": "Sheeshpaul Kamboj <sheeshpaul@hotmail.com>",
-  "license": "MIT",
-  "sideEffects": false,
-  "dependencies": {
+  "main": "lib/everyday-webcomponents.js",
+  "module": "es/everyday-webcomponents.js",
+  "unpkg": "dist/everyday-webcomponents.js",
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
+  ],
+  "scripts": {
+    "clean": "rimraf lib dist es",
+    "lint": "eslint --ext js,ts src",
+    "prepare": "npm run clean && npm run lint && npm run build",
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
+  "dependencies": {},
   "devDependencies": {
-    "rollup": "^1.21.2",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^2.0.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.2.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.3.0",
     "rollup-plugin-typescript": "^1.0.1",
-    "rollup-plugin-uglify-es": "0.0.1",
-    "tslib": "^1.10.0",
-    "typescript": "^3.6.3"
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   },
-  "scripts": {
-    "prepare": "rollup -c --environment NODE_ENV:production",
-    "build": "rollup -c",
-    "build-prod": "rollup -c --environment NODE_ENV:production",
-    "watch": "rollup -c -w"
-  },
-  "files": [
-    "dist"
-  ]
+  "npmName": "everyday-webcomponents",
+  "npmFileMap": [
+    {
+      "basePath": "/dist/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
+  "sideEffects": false
 }

@@ -1,20 +1,20 @@
-import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from "./../../common";
-import { adoptedStyleSheet, templateStyleSheet } from "./ew-carousel.styles";
+import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
+import { adoptedStyleSheet, templateStyleSheet } from './ew-carousel.styles';
 
-import { template } from "./ew-carousel.template";
+import { template } from './ew-carousel.template';
 
 /** The attributes. */
 enum Attributes {
-    type = "type", // Type can have value large
-    ariaRole = "role",
-    ariaRoleDescription = "aria-roledescription",
-    ariaLabel = "aria-label"
+    type = 'type', // Type can have value large
+    ariaRole = 'role',
+    ariaRoleDescription = 'aria-roledescription',
+    ariaLabel = 'aria-label',
 }
 
 /** The name for disabled attribute. */
-const disabledAttribute = "disabled";
+const disabledAttribute = 'disabled';
 
-customElements.define("ew-carousel", class extends HTMLElement {
+class CarouselElement extends HTMLElement {
     /** The carousel element. */
     private carousel!: HTMLDivElement;
 
@@ -34,7 +34,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
     private currentSlide = 1;
 
     /** The observed attributes. */
-    static get observedAttributes() {
+    static get observedAttributes(): string[] {
         return [Attributes.type];
     }
 
@@ -61,7 +61,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
     public constructor() {
         super();
 
-        this.attachShadow({ mode: "open" });
+        this.attachShadow({ mode: 'open' });
         this.shadowRoot!.appendChild(template.content.cloneNode(true));
 
         // Use constructable stylesheet when the feature is present.
@@ -80,15 +80,15 @@ customElements.define("ew-carousel", class extends HTMLElement {
 
     /** Render the component. */
     public connectedCallback(): void {
-        this.carousel = this.shadowRoot!.querySelector(".carousel") as HTMLDivElement;
-        this.previous = this.shadowRoot!.querySelector(".prev") as HTMLButtonElement;
-        this.next = this.shadowRoot!.querySelector(".next") as HTMLButtonElement;
+        this.carousel = this.shadowRoot!.querySelector('.carousel') as HTMLDivElement;
+        this.previous = this.shadowRoot!.querySelector('.prev') as HTMLButtonElement;
+        this.next = this.shadowRoot!.querySelector('.next') as HTMLButtonElement;
 
         // shadowRoot can't have event handlers, so using the first child
-        this.shadowRoot!.firstElementChild!.addEventListener("slotchange", this.onSlotChange);
+        this.shadowRoot!.firstElementChild!.addEventListener('slotchange', this.onSlotChange);
 
-        this.previous.addEventListener("click", this.onPrevious,  { passive: true });
-        this.next.addEventListener("click", this.onNext, { passive: true });
+        this.previous.addEventListener('click', this.onPrevious, { passive: true });
+        this.next.addEventListener('click', this.onNext, { passive: true });
 
         this.setNavigationButtons();
     }
@@ -114,16 +114,16 @@ customElements.define("ew-carousel", class extends HTMLElement {
 
     /** Set the correct type on slot elements. */
     private setType(): void {
-        let type = this.type;
+        const type = this.type;
 
         if (type) {
             this.carousel.classList.add(`carousel--${type}`);
 
-            this.slides.forEach(slide => {
+            this.slides.forEach((slide) => {
                 slide.setAttribute(Attributes.type, type as string);
             });
         } else {
-            this.slides.forEach(slide => {
+            this.slides.forEach((slide) => {
                 slide.removeAttribute(Attributes.type);
             });
         }
@@ -132,12 +132,12 @@ customElements.define("ew-carousel", class extends HTMLElement {
     /** Set all the needed attributes. */
     private setAttributes(): void {
         this.slides.forEach((slide, index) => {
-            slide.setAttribute(Attributes.ariaRole, "group");
-            slide.setAttribute(Attributes.ariaRoleDescription, "slide");
+            slide.setAttribute(Attributes.ariaRole, 'group');
+            slide.setAttribute(Attributes.ariaRoleDescription, 'slide');
             slide.setAttribute(Attributes.ariaLabel, `${index + 1} of ${this.totalSlides}`);
 
             if (index > 0) {
-                slide.style.display = "none";
+                slide.style.display = 'none';
             }
         });
     }
@@ -147,13 +147,13 @@ customElements.define("ew-carousel", class extends HTMLElement {
         if (this.currentSlide > 1) {
             this.previous.removeAttribute(disabledAttribute);
         } else {
-            this.previous.setAttribute(disabledAttribute, "true");
+            this.previous.setAttribute(disabledAttribute, 'true');
         }
 
         if (this.currentSlide < this.totalSlides) {
             this.next.removeAttribute(disabledAttribute);
         } else {
-            this.next.setAttribute(disabledAttribute, "true");
+            this.next.setAttribute(disabledAttribute, 'true');
         }
     }
 
@@ -222,7 +222,7 @@ customElements.define("ew-carousel", class extends HTMLElement {
      * @param slideIndex - The slide index
      */
     private showSlide(slideIndex: number): void {
-        this.slides[slideIndex].style.display = "block";
+        this.slides[slideIndex].style.display = 'block';
     }
 
     /**
@@ -230,6 +230,8 @@ customElements.define("ew-carousel", class extends HTMLElement {
      * @param slideIndex  - The slide index
      */
     private hideSlide(slideIndex: number): void {
-        this.slides[slideIndex].style.display = "none";
+        this.slides[slideIndex].style.display = 'none';
     }
-});
+}
+
+customElements.define('ew-carousel', CarouselElement);

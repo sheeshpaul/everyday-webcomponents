@@ -1,4 +1,4 @@
-export const template = document.createElement("template");
+export const template = document.createElement('template');
 template.innerHTML = `
     <div class="default card">
         <img class="image" width="" height="" src="" alt="" />

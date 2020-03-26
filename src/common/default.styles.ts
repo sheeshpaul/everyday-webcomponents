@@ -1,5 +1,5 @@
-import { colorGrey1, colorGrey12 } from "./color-system";
-import { fontSize3, fontWeightNormal } from "./font-system";
+import { colorGrey1, colorGrey12 } from './color-system';
+import { fontSize3, fontWeightNormal } from './font-system';
 
 const styles = `
     :host {
@@ -15,8 +15,7 @@ const styles = `
     }
     *,
     *:before,
-    *:after
-    {
+    *:after {
         box-sizing: border-box;
         margin-top: 0;
         margin-bottom: 0;
@@ -36,11 +35,11 @@ const styles = `
 export let adoptedDefaultStyleSheet: CSSStyleSheet;
 export let templateDefaultStyleSheet: HTMLTemplateElement;
 
-if ("adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype) {
+if ('adoptedStyleSheets' in Document.prototype && 'replace' in CSSStyleSheet.prototype) {
     adoptedDefaultStyleSheet = new CSSStyleSheet();
     adoptedDefaultStyleSheet.replace(styles);
 } else {
-    templateDefaultStyleSheet = document.createElement("template");
+    templateDefaultStyleSheet = document.createElement('template');
     templateDefaultStyleSheet.innerHTML = `
         <style>
             ${styles}

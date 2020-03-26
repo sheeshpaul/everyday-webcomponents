@@ -1,4 +1,3 @@
-import { ImageCard } from "./../ew-image-card";
+import { ImageCardElement } from './../ew-image-card';
 
-customElements.define("ew-carousel-slide", class extends ImageCard {
-});
+customElements.define('ew-carousel-slide', class extends ImageCardElement {});

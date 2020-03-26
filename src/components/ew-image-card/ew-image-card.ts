@@ -1,22 +1,22 @@
-import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from "./../../common";
-import { adoptedStyleSheet, templateStyleSheet } from "./ew-image-card.styles";
+import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
+import { adoptedStyleSheet, templateStyleSheet } from './ew-image-card.styles';
 
-import { template } from "./ew-image-card.template";
+import { template } from './ew-image-card.template';
 
 /** The supported attributes. */
 enum Attributes {
-    type = "type", // Type can have value large
-    image = "image",
-    text = "text",
-    link = "link"
+    type = 'type', // Type can have value large
+    image = 'image',
+    text = 'text',
+    link = 'link',
 }
 
 /** The name for hidden class utility. */
-const hiddenClass = "u-hidden";
+const hiddenClass = 'u-hidden';
 
-export class ImageCard extends HTMLElement {
+export class ImageCardElement extends HTMLElement {
     /** The card element. */
-    private cardElement!: HTMLDivElement;;
+    private cardElement!: HTMLDivElement;
 
     /** The image element. */
     private imageElement!: HTMLImageElement;
@@ -34,7 +34,7 @@ export class ImageCard extends HTMLElement {
     private fallbackImage: string;
 
     /** The observed attributes. */
-    static get observedAttributes() {
+    static get observedAttributes(): string[] {
         return [Attributes.type, Attributes.image, Attributes.text, Attributes.link];
     }
 
@@ -103,9 +103,9 @@ export class ImageCard extends HTMLElement {
     public constructor() {
         super();
 
-        this.fallbackImage = "data:image/gif;base64,R0lGODlhAQABAIAAAMzMzAAAACH5BAAAAP8ALAAAAAABAAEAAAICRAEAOw==";
+        this.fallbackImage = 'data:image/gif;base64,R0lGODlhAQABAIAAAMzMzAAAACH5BAAAAP8ALAAAAAABAAEAAAICRAEAOw==';
 
-        this.attachShadow({ mode: "open" });
+        this.attachShadow({ mode: 'open' });
         this.shadowRoot!.appendChild(template.content.cloneNode(true));
 
         // Use constructable stylesheet when the feature is present.
@@ -120,11 +120,11 @@ export class ImageCard extends HTMLElement {
 
     /** Render the component. */
     public connectedCallback(): void {
-        this.cardElement = this.shadowRoot!.querySelector(".card") as HTMLDivElement;
-        this.imageElement = this.shadowRoot!.querySelector(".image") as HTMLImageElement;
-        this.textBoxElement = this.shadowRoot!.querySelector(".text") as HTMLDivElement;
-        this.textElement = this.shadowRoot!.querySelector(".text p") as HTMLParagraphElement;
-        this.linkElement = this.shadowRoot!.querySelector(".link") as HTMLAnchorElement;
+        this.cardElement = this.shadowRoot!.querySelector('.card') as HTMLDivElement;
+        this.imageElement = this.shadowRoot!.querySelector('.image') as HTMLImageElement;
+        this.textBoxElement = this.shadowRoot!.querySelector('.text') as HTMLDivElement;
+        this.textElement = this.shadowRoot!.querySelector('.text p') as HTMLParagraphElement;
+        this.linkElement = this.shadowRoot!.querySelector('.link') as HTMLAnchorElement;
 
         this.setType();
         this.setImage();
@@ -162,7 +162,7 @@ export class ImageCard extends HTMLElement {
 
     /** Set card type class on the card element. */
     private setType(): void {
-        let type = this.type;
+        const type = this.type;
         if (type) {
             this.cardElement.classList.add(`card--${type}`);
         }
@@ -178,8 +178,8 @@ export class ImageCard extends HTMLElement {
         let imageWidth = 300;
         let imageHeight = 250;
 
-        let type = this.type;
-        if (type === "large") {
+        const type = this.type;
+        if (type === 'large') {
             imageWidth = 624;
             imageHeight = 350;
         }
@@ -191,7 +191,7 @@ export class ImageCard extends HTMLElement {
 
     /** Set text on the text element. */
     private setText(): void {
-        let text = this.text;
+        const text = this.text;
         if (text) {
             this.textElement.innerText = text;
         }
@@ -201,7 +201,7 @@ export class ImageCard extends HTMLElement {
 
     /** Set link element's href attribute. */
     private setLink(): void {
-        let link = this.link;
+        const link = this.link;
         if (link) {
             this.linkElement.href = link;
         }
@@ -254,7 +254,7 @@ export class ImageCard extends HTMLElement {
         if (newVal) {
             this.linkElement.href = newVal;
         } else {
-            this.linkElement.removeAttribute("href");
+            this.linkElement.removeAttribute('href');
         }
     }
 
@@ -268,4 +268,4 @@ export class ImageCard extends HTMLElement {
     }
 }
 
-customElements.define("ew-image-card", ImageCard);
+customElements.define('ew-image-card', ImageCardElement);

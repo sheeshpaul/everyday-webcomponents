@@ -1,4 +1,4 @@
-export const template = document.createElement("template");
+export const template = document.createElement('template');
 template.innerHTML = `
     <section class="default carousel" aria-roledescription="carousel" aria-label="The carousel to show content">
         <button class="prev" aria-label="Previous Slide" aria-controls="container">

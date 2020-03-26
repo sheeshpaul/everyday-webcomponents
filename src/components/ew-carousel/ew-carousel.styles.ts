@@ -1,4 +1,4 @@
-import { colorGrey1 } from "./../../common";
+import { colorGrey1 } from './../../common';
 
 const styles = `
     :host {
@@ -63,11 +63,11 @@ const styles = `
 export let templateStyleSheet: HTMLTemplateElement;
 export let adoptedStyleSheet: CSSStyleSheet;
 
-if ("adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype) {
+if ('adoptedStyleSheets' in Document.prototype && 'replace' in CSSStyleSheet.prototype) {
     adoptedStyleSheet = new CSSStyleSheet();
     adoptedStyleSheet.replace(styles);
 } else {
-    templateStyleSheet = document.createElement("template");
+    templateStyleSheet = document.createElement('template');
     templateStyleSheet.innerHTML = `
         <style>
             ${styles}

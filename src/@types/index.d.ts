@@ -1,6 +1,6 @@
-// Need this empty export to prevent the following TS compile error:
-//  TS2669: Augmentations for the global scope can only be directly nested in external modules or ambient module declarations.
-export { };
+// Need this empty export to prevent the following TS compile error
+// TS2669: Augmentations for the global scope can only be directly nested in external modules or ambient module declarations.
+export {};
 
 declare global {
     /** Extending CSSStyleSheet interface. */
