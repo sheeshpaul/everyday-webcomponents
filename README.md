@@ -1,39 +1,37 @@
 # everyday-webcomponents
 everyday-webcomponents is a collection of commonly used Web UIs as Native Web Components. The everyday-components are very light weight, accessible, written using vanilla web component APIs and does not use any framework.
 
-## Content
-- [Usage](#usage)
-    - [In the Browser](#in-the-browser)
-    - [In the Bundler as ES6 Module](#in-the-bundler-as-es6-module)
-    - [In the Bundler as CommonJS Module](#in-the-bundler-as-commonjs-module)
+# Quick Start Guide
+- [Installation](#installation)
+    - [Script Tag](#script-tag)
+    - [ES Module](#es-module)
+    - [CommonJS Module](#commonjs-module)
 - [Components](#components)
     - [Card Component](#card-component)
     - [Image Card Component](#image-card-component)
     - [Carousel Component](#carousel-component)
 
-## Usage
-There are three different ways to use this package.
-
-### In the Browser
+# Installation
+## Script Tag
 The package comes in two types of bundles, available over the CDN.
 
 For the first type, one single bundle has all the components. Include the following script. The script tag can be added in the head or end of the body tag.
 ```html
-<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-webcomponents.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents/dist/everyday-webcomponents.min.js'></script>
 ```
 For the second type, each component has it's own bundle. This is usefull when using few components and reduces the bundle download size. Below is the listing of all the bundles. Include the script for the component that you want to use.
 ```html
 // Card component bundle
-<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-card-webcomponent.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents/dist/everyday-ew-card-webcomponent.min.js'></script>
 
 // Image Card component bundle
-<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-image-card-webcomponent.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents/dist/everyday-ew-image-card-webcomponent.min.js'></script>
 
 // Carousel component bundle
-<script src='https://unpkg.com/everyday-webcomponents@0.0.4/dist/everyday-ew-carousel-webcomponent.min.js'></script>
+<script src='https://unpkg.com/everyday-webcomponents/dist/everyday-ew-carousel-webcomponent.min.js'></script>
 ```
 
-### In the Bundler as ES6 Module
+## ES Module
 Use the package manager to install the package.
 
 ```
@@ -46,7 +44,7 @@ In your code import everyday-webcomponents to bundle it with your code.
 import 'everyday-webcomponents';
 ```
 
-### In the Bundler as CommonJS Module
+## CommonJS Module
 Use the package manager to install the package.
 
 ```
