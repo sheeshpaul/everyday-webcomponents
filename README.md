@@ -13,13 +13,11 @@ everyday-webcomponents is a collection of commonly used Web UIs as Native Web Co
 
 # Installation
 ## Script Tag
-The package comes in two types of bundles, available over the CDN.
-
-For the first type, one single bundle has all the components. Include the following script. The script tag can be added in the head or end of the body tag.
+Single bundle for all the components.
 ```html
 <script src='https://unpkg.com/everyday-webcomponents/dist/everyday-webcomponents.min.js'></script>
 ```
-For the second type, each component has it's own bundle. This is usefull when using few components and reduces the bundle download size. Below is the listing of all the bundles. Include the script for the component that you want to use.
+Bundle for individual component.
 ```html
 // Card component bundle
 <script src='https://unpkg.com/everyday-webcomponents/dist/everyday-ew-card-webcomponent.min.js'></script>
@@ -32,30 +30,21 @@ For the second type, each component has it's own bundle. This is usefull when us
 ```
 
 ## ES Module
-Use the package manager to install the package.
-
+```sh
+npm install --save everyday-webcomponents
 ```
-npm install everyday-webcomponents
-```
-
-In your code import everyday-webcomponents to bundle it with your code.
-
-```ts
+```javascript
 import 'everyday-webcomponents';
 ```
 
 ## CommonJS Module
-Use the package manager to install the package.
-
+```sh
+npm install --save everyday-webcomponents
 ```
-npm install everyday-webcomponents
-```
-
-In your code require everyday-webcomponents to bundle it with your code.
-
-```ts
+```javascript
 require('everyday-webcomponents');
 ```
+
 # Components
 ## Card Component
 The card component comes in three variations, small, regular, and compact.
