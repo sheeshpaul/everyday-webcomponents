@@ -132,3 +132,6 @@ The carousel component comes in regular and large variations.
 ### Codepen Example
 - [HTML declarative approach](https://codepen.io/sheeshpaul/pen/GRRyvYp)
 - [Javascript approach](https://codepen.io/sheeshpaul/pen/rNNpzqr)
+
+# License
+MIT
