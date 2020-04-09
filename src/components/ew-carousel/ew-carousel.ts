@@ -1,4 +1,4 @@
-import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
+import { addStyleSheets, adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
 import { adoptedStyleSheet, templateStyleSheet } from './ew-carousel.styles';
 
 import { template } from './ew-carousel.template';
@@ -64,14 +64,13 @@ class CarouselElement extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot!.appendChild(template.content.cloneNode(true));
 
-        // Use constructable stylesheet when the feature is present.
-        // This ensures single instance of stylesheet is used across all the instances of this component.
-        if (adoptedStyleSheet) {
-            this.shadowRoot!.adoptedStyleSheets = [adoptedDefaultStyleSheet, adoptedStyleSheet];
-        } else {
-            this.shadowRoot!.appendChild(templateDefaultStyleSheet.content.cloneNode(true));
-            this.shadowRoot!.appendChild(templateStyleSheet.content.cloneNode(true));
-        }
+        addStyleSheets(
+            this.shadowRoot!,
+            adoptedDefaultStyleSheet,
+            adoptedStyleSheet,
+            templateDefaultStyleSheet,
+            templateStyleSheet,
+        );
 
         this.onSlotChange = this.onSlotChange.bind(this);
         this.onNext = this.onNext.bind(this);
@@ -234,4 +233,6 @@ class CarouselElement extends HTMLElement {
     }
 }
 
-customElements.define('ew-carousel', CarouselElement);
+if (!customElements.get('ew-carousel')) {
+    customElements.define('ew-carousel', CarouselElement);
+}

@@ -1,4 +1,4 @@
-import { adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
+import { addStyleSheets, adoptedDefaultStyleSheet, templateDefaultStyleSheet } from './../../common';
 import { adoptedStyleSheet, templateStyleSheet } from './ew-image-card.styles';
 
 import { template } from './ew-image-card.template';
@@ -108,23 +108,22 @@ export class ImageCardElement extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot!.appendChild(template.content.cloneNode(true));
 
-        // Use constructable stylesheet when the feature is present.
-        // This ensures single instance of stylesheet is used across all the instances of this component.
-        if (adoptedStyleSheet) {
-            this.shadowRoot!.adoptedStyleSheets = [adoptedDefaultStyleSheet, adoptedStyleSheet];
-        } else {
-            this.shadowRoot!.appendChild(templateDefaultStyleSheet.content.cloneNode(true));
-            this.shadowRoot!.appendChild(templateStyleSheet.content.cloneNode(true));
-        }
+        addStyleSheets(
+            this.shadowRoot!,
+            adoptedDefaultStyleSheet,
+            adoptedStyleSheet,
+            templateDefaultStyleSheet,
+            templateStyleSheet,
+        );
     }
 
     /** Render the component. */
     public connectedCallback(): void {
         this.cardElement = this.shadowRoot!.querySelector('.card') as HTMLDivElement;
-        this.imageElement = this.shadowRoot!.querySelector('.image') as HTMLImageElement;
-        this.textBoxElement = this.shadowRoot!.querySelector('.text') as HTMLDivElement;
-        this.textElement = this.shadowRoot!.querySelector('.text p') as HTMLParagraphElement;
-        this.linkElement = this.shadowRoot!.querySelector('.link') as HTMLAnchorElement;
+        this.imageElement = this.shadowRoot!.querySelector('img') as HTMLImageElement;
+        this.textBoxElement = this.shadowRoot!.querySelector('.card div') as HTMLDivElement;
+        this.textElement = this.shadowRoot!.querySelector('p') as HTMLParagraphElement;
+        this.linkElement = this.shadowRoot!.querySelector('a') as HTMLAnchorElement;
 
         this.setType();
         this.setImage();
@@ -175,6 +174,13 @@ export class ImageCardElement extends HTMLElement {
             image = this.fallbackImage;
         }
 
+        this.setImageDimensions();
+
+        this.imageElement.src = image;
+    }
+
+    /** Set image element's width and height. */
+    private setImageDimensions(): void {
         let imageWidth = 300;
         let imageHeight = 250;
 
@@ -186,7 +192,6 @@ export class ImageCardElement extends HTMLElement {
 
         this.imageElement.width = imageWidth;
         this.imageElement.height = imageHeight;
-        this.imageElement.src = image;
     }
 
     /** Set text on the text element. */
@@ -220,6 +225,8 @@ export class ImageCardElement extends HTMLElement {
         if (newVal) {
             this.cardElement.classList.add(`card--${newVal.toLowerCase()}`);
         }
+
+        this.setImageDimensions();
     }
 
     /**
@@ -268,4 +275,6 @@ export class ImageCardElement extends HTMLElement {
     }
 }
 
-customElements.define('ew-image-card', ImageCardElement);
+if (!customElements.get('ew-image-card')) {
+    customElements.define('ew-image-card', ImageCardElement);
+}

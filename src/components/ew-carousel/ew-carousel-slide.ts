@@ -1,3 +1,5 @@
 import { ImageCardElement } from './../ew-image-card';
 
-customElements.define('ew-carousel-slide', class extends ImageCardElement {});
+if (!customElements.get('ew-carousel-slide')) {
+    customElements.define('ew-carousel-slide', class extends ImageCardElement {});
+}
